@@ -15,6 +15,7 @@ DOES  <- args[4]
 TYPE  <- args[5] 
 LEVEL <- args[6] 
 BASE  <- args[7]
+PER   <- args[8] 
 
 MODEL <- mrgsolve::mread(BASE) 
 
@@ -41,6 +42,7 @@ model <- mrgsolve::smat(MODEL, sigmat)
 
   
 GetData <- function(model, 
+                    nsim=100,
                     per=c('B','A1', 'A2', 'A3', 'S1', 'D', 'TD','All'),
                     design=c('INT', 'SPA')) {
 
@@ -52,9 +54,28 @@ GetData <- function(model,
                 design <- match.arg(design) 
         } 
 
+        BNAME <- c("ID", "TIME", "DV", "AMT", "MDV", "EVID") # Not sure if CMT should be added at this point
 
+        if (per == 'B') {
+               event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
+               for (i in 1:nsim) {
+                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars='Cc', carry_out='amt,evid,cmt'))
+			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+				dose[[i]]$Cc <- 0 
+                                # Dose data 
+                                # Arrange data
 
-
+                                base[[i]] <- rbind(dose[[i]], conc[[i]])
+                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                                
+                                colnames(base[[i]]) <- BNAME
+		    }
+	}
+	names(base) <- paste0("BASE", seq_along(base))
+	for (i in 1:nsim) {
+	    NAM[i] <- paste("../../data",type,PER,'dat',i,".csv",sep='/')
+	    write.csv(base[[i]], NAM[i],quote=FALSE,row.names=F,na='.')
+	 }
 
 
 
