@@ -19,7 +19,7 @@ echo "Lets start by creating datasets ..."
 echo "Moving to simulation directory"
 
 cd src\sim\
-rem ( for %%i in (%TYPE%) do (
-rem         call Rscript --vanilla -e 'source("generate.R")' %NSUBS% %NSIMS% %TDOSE% %DOSE% %%i %LEVEL% %BASE% %PER% 
-rem ))
+( for %%i in (%TYPE%) do (
+    call Rscript --vanilla -e "source('generate.R')" %NSUBS% %NSIMS% %TDOSE% %DOSE% %%i %LEVEL% %BASE% %PER% 
+))
 

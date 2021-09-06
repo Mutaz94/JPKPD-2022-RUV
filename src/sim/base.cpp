@@ -14,6 +14,7 @@ Model: Base model
 [ sigma ]  0.0025 0.0
 
 [ global ]
+#include "include/math.h"
 #define eta(n) ETA(n)
 #define eps(n) EPS(n)
 
@@ -39,7 +40,7 @@ Cc = (cent/Vc) * (1 + eps(1)) + eps(2);
 int i = 0; 
 while (Cc < 0) {
         if (++i > 100) {
-                mrg::report("Model gave up, negative values associated with Cc");
+                mrg::report("Model gave up, There are negative values associated with Cc");
                 break;
         }
         simeps();
