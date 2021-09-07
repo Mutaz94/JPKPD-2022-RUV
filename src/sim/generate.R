@@ -4,7 +4,7 @@
 # Program: Generate simulated data 
 # Author: Mutaz M. Jaber <jaber038@umn.edu> 
 # Date created: 9/5/21
-# Date modified: 9/5/21
+# Date modified: 9/7/21
 #---------------------------------------------------------------------#
 library(mrgsolve) 
 
@@ -82,8 +82,7 @@ GetData <- function(model,
                               }
 
       } else if (per == 'S1') {
-               event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
-               event <- as_data_set(event) 
+               event <- expand.ev(amt=DOSE, time=TDOSE)
                for (i in 1:nsim) {
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
@@ -92,7 +91,7 @@ GetData <- function(model,
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
                                 # Dose data 
-                                conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
+                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
 
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
@@ -101,8 +100,7 @@ GetData <- function(model,
                                 base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
 	       }
 	} else if (per == 'S2') {
-	       event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
-	       event <- as_data_set(event) 
+	       event <- expand.ev(amt=DOSE, time=TDOSE)
                for (i in 1:nsim) {
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + runif(length(SAMPLE), -5/60, 5/60), length(SAMPLE)))
@@ -111,7 +109,7 @@ GetData <- function(model,
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
                                 # Dose data 
-                                conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
+                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
 
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
@@ -174,7 +172,7 @@ GetData <- function(model,
                
         } else if (per == 'All') {
           	TDOSE = rnorm(nsubs, 0, 5/60)
-         	 DOSE = rnorm(nsubs, DOSE, 12)
+         	DOSE = rnorm(nsubs, DOSE, 12)
           	event <- expand.ev(amt=DOSE, time=TDOSE)
                for (i in 1:nsim) {
                  		SAM <- c(0, SAMPLE)
@@ -185,7 +183,7 @@ GetData <- function(model,
 				dose[[i]]$Cc <- 0 
 				dose[[i]]$amt <- 120
                                 # Dose data 
-                                conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
+                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
 
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])

@@ -1,8 +1,13 @@
 @echo off
+
 echo ------------------------------------------------------- 
 echo Investigating the contribution of residual unexplained
 echo variability components in NLME approach 
 echo -------------------------------------------------------
+rem Author: Mutaz M. Jaber <jaber038@umn.edu>
+rem Date created: 9/5/2021
+rem Date modified: 9/7/2021
+
 
 set /A DOSE=120
 set /A TDOSE=0
@@ -27,3 +32,6 @@ cd src\sim\
 echo Data has been generated.
 echo Back to main directory...
 cd ..\..\
+
+echo Creating control streams...
+
