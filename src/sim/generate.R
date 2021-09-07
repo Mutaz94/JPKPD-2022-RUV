@@ -14,25 +14,17 @@ nsim  <- as.numeric(args[2])
 TDOSE <- as.numeric(args[3])
 DOSE  <- as.numeric(args[4])
 TYPE  <- args[5] 
-LEVEL <- as.numeric(args[6])
-BASE  <- args[7]
-PER   <- args[8] 
+BASE  <- args[6]
+PER   <- args[7] 
 
 MODEL <- mrgsolve::mread(BASE) 
 
-if (TYPE == 'int') {
-        SAMPLE <- c(0.5, 1, 2, 4, 6, 8, 12, 24, 48) 
-} else if (TYPE == 'spa') {
-        SAMPLE <- c(2, 12, 24, 48) 
-} else {
-        stop('Study design must be declared (int or spa)')
-}
 
-if (LEVEL == 1) {
+if (PER == 'A1') {
         sigmat <- diag(c(0.0025, 1e-04))
-} else if (LEVEL == 2) {
+} else if (PER == 'A2') {
         sigmat <- diag(c(0.0025, 4e-4))
-} else if (LEVEL == 3) {
+} else if (PER == 'A3' | PER == 'All') {
         sigmat <- diag(c(0.0025, 0.0016))
 } else {
         sigmat <- diag(c(0.0025, 0.0))
@@ -49,8 +41,8 @@ GetData <- function(model,
                     SAMPLE,
                     nsubs,
                     TYPE,
-                    per=c('B','A1', 'A2', 'A3', 'S1', 'D', 'TD','All'),
-                    design=c('INT', 'SPA')) {
+                    per=c('B','A1', 'A2', 'A3', 'S1', 'D', 'TD','All')
+                    ) {
 
         if (inherits(per, "character")) {
                 per <- match.arg(per) 
@@ -65,6 +57,13 @@ GetData <- function(model,
 	base <- list()
 	
         BNAME <- c("ID", "TIME", "DV", "AMT", "MDV", "EVID") # Not sure if CMT should be added at this point
+        if (TYPE == 'int') {
+                SAMPLE <- c(0.5, 1, 2, 4, 6, 8, 12, 24, 48) 
+        } else if (TYPE == 'spa') {
+                SAMPLE <- c(2, 12, 24, 48) 
+        } else {
+                stop('Study design must be declared (int or spa)')
+        }
 
         if (per == 'B') {
                event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
@@ -95,7 +94,7 @@ GetData <- function(model,
 
 }
 
-GetData(model,nsim,TDOSE,DOSE,SAMPLE,nsubs,TYPE,PER,'INT') 
+GetData(model,nsim,TDOSE,DOSE,SAMPLE,nsubs,TYPE,PER) 
 
 
 
