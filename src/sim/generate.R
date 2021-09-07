@@ -65,7 +65,7 @@ GetData <- function(model,
                 stop('Study design must be declared (int or spa)')
         }
 
-        if (per == 'B') {
+        #if (per == 'B') {
                event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
@@ -80,7 +80,7 @@ GetData <- function(model,
                                 
                                 colnames(base[[i]]) <- BNAME
 		    }
-	} #else if (per == 'A1') 
+	#} #else if (per == 'A1') 
 	names(base) <- paste0("BASE", seq_along(base))
 
 

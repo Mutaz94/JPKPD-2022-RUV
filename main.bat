@@ -9,9 +9,8 @@ set /A TDOSE=0
 set /A NSUBS=100
 set /A NSIMS=100
 set TYPE=int spa
-set /A LEVEL=0
 set BASE=base.cpp
-set PER=B
+set PER=B A1 A2 A3
 
 
 echo "Lets start by creating datasets ..."
@@ -20,6 +19,7 @@ echo "Moving to simulation directory"
 
 cd src\sim\
 ( for %%i in (%TYPE%) do (
-    call Rscript --vanilla -e "source('generate.R')" %NSUBS% %NSIMS% %TDOSE% %DOSE% %%i %LEVEL% %BASE% %PER% 
-))
+	(for %%j in (%PER%) do (
+    		call Rscript --vanilla -e "source('generate.R')" %NSUBS% %NSIMS% %TDOSE% %DOSE% %%i %BASE% %%j
+))))
 
