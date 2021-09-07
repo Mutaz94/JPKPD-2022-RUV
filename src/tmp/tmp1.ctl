@@ -1,4 +1,4 @@
-$PROB templeate control stream 
+$PROB template control stream 
 ;-----------------------------------------------------------------------
 ; Project: 	Investigating the contribution of residual unexplained 
 ; 	   	variability in nonlinear mixed-effect approach 
