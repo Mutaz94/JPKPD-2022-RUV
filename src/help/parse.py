@@ -4,7 +4,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Create NONMEM files and attach them to corresponding dataset
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/5/21
+Date modified: 9/8/21
 """
 
 import numpy
@@ -24,14 +24,11 @@ def create_control():
     > createpy dat1 tmp1 
     # This will produce something!! 
     """
-    pass
+    with open(f'{sys.argv[1]}') as nmfi:
+        nmfi = nmfi.readlines()
+        for line in nmfi:
+            print(line)
 
 
-with open('tmp1.ctl') as nmfi:
-    fi = nmfi.readlines()
 
-NUM=100
-
-for i in range(1, 101):
-    x.append
 
