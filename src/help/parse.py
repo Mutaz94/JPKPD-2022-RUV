@@ -11,3 +11,27 @@ import numpy
 import os
 import sys
 import string
+
+
+
+def create_control():
+    """
+    Function to create NONMEM control streams based 
+    on template file. 
+    
+    Example
+    ------------------------
+    > createpy dat1 tmp1 
+    # This will produce something!! 
+    """
+    pass
+
+
+with open('tmp1.ctl') as nmfi:
+    fi = nmfi.readlines()
+
+NUM=100
+
+for i in range(1, 101):
+    x.append
+
