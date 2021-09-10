@@ -41,7 +41,8 @@ GetData <- function(model,
                     SAMPLE,
                     nsubs,
                     TYPE,
-                    per=c('B','A1', 'A2', 'A3', 'S1','S2', 'D','TD1','TD2','All')
+                    per=c('B','A1', 'A2', 'A3', 'S1','S1a', 'S1b', 
+                          'S1c', 'S2', 'D','TD1','TD2','All')
                     ) {
 
         if (inherits(per, "character")) {
