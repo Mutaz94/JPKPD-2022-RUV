@@ -1,10 +1,10 @@
 #---------------------------------------------------------------------#
 # Project: Investigating the contribution of residual unexplaind 
 #          variability components in nonlinear mixed effect approach 
-# Program: Generate simulated data 
+# Program: Generate simulated data using mrgsolve
 # Author: Mutaz M. Jaber <jaber038@umn.edu> 
 # Date created: 9/5/21
-# Date modified: 9/7/21
+# Date modified: 9/10/21
 #---------------------------------------------------------------------#
 library(mrgsolve) 
 
@@ -41,8 +41,7 @@ GetData <- function(model,
                     SAMPLE,
                     nsubs,
                     TYPE,
-                    per=c('B','A1', 'A2', 'A3', 'S1','S1a', 'S1b', 
-                          'S1c', 'S2', 'D','TD1','TD2','All')
+                    per=c('B','A1', 'A2', 'A3', 'S1','SL1', 'SL2', 'SL3', 'S2', 'D','TD1','TD2','All')
                     ) {
 
         if (inherits(per, "character")) {
@@ -83,7 +82,7 @@ GetData <- function(model,
                               }
 
       } else if (per == 'S1') {
-               event <- expand.ev(amt=DOSE, time=TDOSE)
+               event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
@@ -100,12 +99,70 @@ GetData <- function(model,
                                 colnames(base[[i]]) <- BNAME
                                 base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
 	       }
+      } else if (per == 'SL1') {
+               event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
+               for (i in 1:nsim) {
+                 		SAM <- c(0, SAMPLE)
+                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 10/60), length(SAMPLE)))
+                 		idata <- dplyr::select(event, ID) 
+
+                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
+			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+				dose[[i]]$Cc <- 0 
+                                # Dose data 
+                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
+                                # Arrange data
+
+                                base[[i]] <- rbind(dose[[i]], conc[[i]])
+                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                                colnames(base[[i]]) <- BNAME
+                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+	       }
+      } else if (per == 'SL2') {
+               event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
+               for (i in 1:nsim) {
+                 		SAM <- c(0, SAMPLE)
+                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 15/60), length(SAMPLE)))
+                 		idata <- dplyr::select(event, ID) 
+
+                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
+			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+				dose[[i]]$Cc <- 0 
+                                # Dose data 
+                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
+                                # Arrange data
+
+                                base[[i]] <- rbind(dose[[i]], conc[[i]])
+                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                                colnames(base[[i]]) <- BNAME
+                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+	       }
+      } else if (per == 'SL3') {
+               event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
+               for (i in 1:nsim) {
+                 		SAM <- c(0, SAMPLE)
+                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 30/60), length(SAMPLE)))
+                 		idata <- dplyr::select(event, ID) 
+
+                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
+			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+				dose[[i]]$Cc <- 0 
+                                # Dose data 
+                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
+                                # Arrange data
+
+                                base[[i]] <- rbind(dose[[i]], conc[[i]])
+                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                                colnames(base[[i]]) <- BNAME
+                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+	       }
 	} else if (per == 'S2') {
-	       event <- expand.ev(amt=DOSE, time=TDOSE)
+	       event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + runif(length(SAMPLE), -5/60, 5/60), length(SAMPLE)))
-                 		idata <- dplyr::select(event, ID) 
+                 		idata <- dplyr::select(event, ID)
+
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -179,6 +236,7 @@ GetData <- function(model,
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
+
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 

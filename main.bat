@@ -6,7 +6,7 @@ echo variability components in NLME approach
 echo -------------------------------------------------------
 rem Author: Mutaz M. Jaber <jaber038@umn.edu>
 rem Date created: 9/5/2021
-rem Date modified: 9/7/2021
+rem Date modified: 9/10/2021
 
 
 set /A DOSE=120
@@ -15,7 +15,7 @@ set /A NSUBS=100
 set /A NSIMS=100
 set TYPE=int spa
 set BASE=base.cpp
-set PER=B A1 A2 A3 S1 S2 TD1 TD2 D All 
+set PER=B A1 A2 A3 S1 SL1 SL2 SL3 S2 TD1 TD2 D All 
 
 
 echo Lets start by creating datasets ...
