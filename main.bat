@@ -39,6 +39,6 @@ cd src\tmp\
 	(for %%i in (%TYPE%) do (
 		( for %%j in (%PER%) do (
 			( for /L %%s in (1, 1, NSUBS) do (
-		call python parse.py %%c %%i %%j %%s 
+		call python ..\help\parse.py %%c %%i %%j %%s 
 ))))))))
   
