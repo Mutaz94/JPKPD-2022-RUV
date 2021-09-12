@@ -14,7 +14,7 @@ import string
 
 
 
-def create_control():
+def create_control(comp, desgin, per, nsub):
     """
     Function to create NONMEM control streams based 
     on template file. 
@@ -24,11 +24,28 @@ def create_control():
     > createpy dat1 tmp1 
     # This will produce something!! 
     """
-    with open(f'{sys.argv[1]}') as nmfi:
+    if comp == '1':
+        val = 'tmp2.ctl'
+    else:
+        val = 'tmp1.ctl' 
+    
+    with open(f'{val}') as nmfi:
         nmfi = nmfi.readlines()
+    
+        design=sys.argv[2]
+        per=sys.argv[3]
+        nsub=sys.argv[4]
+        newfile=""
         for line in nmfi:
-            print(line)
+            sl = line.strip()
+            newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/{per}/dat{nsub}.csv')
+            newfile += newline + '\n'
+        
+        control = open(f'm{nsub}.ctl', 'w')
+        control.write(newfile)
+        control.close() 
+    
 
-
+create_control(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]) 
 
 
