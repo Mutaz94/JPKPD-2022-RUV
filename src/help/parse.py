@@ -39,9 +39,9 @@ def create_control(comp, design, per, nsub, dir=None):
         for line in nmfi:
             sl = line.strip()
             if per == 'M':
-                newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/B/dat{nsub}.csv')
+                newline=sl.replace('../../data/int/B/dat1.csv', f'../../../../data/{design}/B/dat{nsub}.csv')
             else:
-                newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/{per}/dat{nsub}.csv')
+                newline=sl.replace('../../data/int/B/dat1.csv', f'../../../../data/{design}/{per}/dat{nsub}.csv')
 
             newfile += newline + '\n'
         

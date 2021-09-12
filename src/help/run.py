@@ -4,7 +4,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: invoke nonmem models 
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/11/21
+Date modified: 9/12/21
 """
 
 import sys
@@ -13,11 +13,17 @@ import subprocess
 import glob 
 
 
-CALL_NM = 'nmfe75'
-infile=[]
-outfile=[]
-ARGS='-prdefault'
+
+def run():
+    CALL_NM = 'nmfe75'
+    infile=[]
+    outfile=[]
+    ARGS='-prdefault'
+    pass
 
 
-RM_FILES=['FDATA', 'FSUB', 'LINK']
-RM_FILES
+
+def clean():
+    RM_FILE=['FDATA.csv', 'FCON', 'LINK', 'gfortran.txt']
+    pass
+
