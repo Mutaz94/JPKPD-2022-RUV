@@ -10,7 +10,14 @@ Date modified: 9/11/21
 import sys
 import os 
 import subprocess
+import glob 
 
-CALL_NM = subprocess.call('nmfe75')
+
+CALL_NM = 'nmfe75'
+infile=[]
+outfile=[]
+ARGS='-prdefault'
+
+
 RM_FILES=['FDATA', 'FSUB', 'LINK']
 RM_FILES

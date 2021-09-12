@@ -1,15 +1,23 @@
 #!/usr/bin/python 
 
+"""
+Project: Investigating the contribution of residual unexplaind variability components in NLME approach
+Program: Main program to create, estimate, and produce results  
+Author: Mutaz M. Jaber <jaber038@umn.edu>
+Date created: 9/5/21
+Date modified: 9/11/21
+"""
 import os 
 import sys
 import subprocess
+
 sys.path.append('src/help')
 import parse
 
-print('------------------------------------------------')
+print('------------------------------------------------------')
 print('Investigating the contribution of residual unexplained')
 print('variability components in NLME approach') 
-print('------------------------------------------------') 
+print('------------------------------------------------------') 
 
 DOSE='120'
 TDOSE='0'
