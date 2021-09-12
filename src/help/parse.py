@@ -4,7 +4,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Create NONMEM files and attach them to corresponding dataset
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/8/21
+Date modified: 9/11/21
 """
 
 import numpy
@@ -14,7 +14,7 @@ import string
 
 
 
-def create_control(comp, desgin, per, nsub):
+def create_control(comp, desgin, per, nsub, dir=None):
     """
     Function to create NONMEM control streams based 
     on template file. 
@@ -41,9 +41,12 @@ def create_control(comp, desgin, per, nsub):
             newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/{per}/dat{nsub}.csv')
             newfile += newline + '\n'
         
+        # Create directory
+        
         control = open(f'm{nsub}.ctl', 'w')
         control.write(newfile)
         control.close() 
+        print(f'Model {design}-{per}-{nsub} has been created')
     
 
 create_control(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]) 
