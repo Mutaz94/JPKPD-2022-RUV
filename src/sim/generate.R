@@ -4,7 +4,7 @@
 # Program: Generate simulated data using mrgsolve
 # Author: Mutaz M. Jaber <jaber038@umn.edu> 
 # Date created: 9/5/21
-# Date modified: 9/10/21
+# Date modified: 9/11/21
 #---------------------------------------------------------------------#
 library(mrgsolve) 
 
@@ -68,6 +68,7 @@ GetData <- function(model,
         if (per =='B' | per == 'A1' | per == 'A2' | per == 'A3') {
         	event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
+                 		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -84,9 +85,11 @@ GetData <- function(model,
       } else if (per == 'S1') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
+                 		set.seed(i)                  
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
+                 		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -102,10 +105,11 @@ GetData <- function(model,
       } else if (per == 'SL1') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
+                 		set.seed(i) 
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 10/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
-
+                 		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -121,10 +125,11 @@ GetData <- function(model,
       } else if (per == 'SL2') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
+                 		set.seed(i) 
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 15/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
-
+                 		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -140,10 +145,11 @@ GetData <- function(model,
       } else if (per == 'SL3') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
+                 		set.seed(i) 
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 30/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
-
+                 		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -159,10 +165,11 @@ GetData <- function(model,
 	} else if (per == 'S2') {
 	       event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
+                                set.seed(i) 
                  		SAM <- c(0, SAMPLE)
                  		dl <- purrr::map(event$ID, ~ sample(SAMPLE + runif(length(SAMPLE), -5/60, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID)
-
+                 		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -176,9 +183,13 @@ GetData <- function(model,
                                 base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
 	       }
 	} else if (per == 'TD1') {
-	       TDOSE = rnorm(nsubs, 0, 5/60)
-	       event <- expand.ev(amt=DOSE, time=TDOSE) 
+	      
 	                      for (i in 1:nsim) {
+	                        set.seed(i) 
+	                        TDOSE = rnorm(nsubs, 0, 5/60)
+	       			event <- expand.ev(amt=DOSE, time=TDOSE) 
+	       			
+	       			set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -193,9 +204,12 @@ GetData <- function(model,
                                 base[[i]][base[[i]]$AMT != 0, ]$TIME <- 0 
                               }
         } else if (per =='TD2') {
-	       TDOSE = runif(nsubs, -5/60, 5/60)
-	       event <- expand.ev(amt=DOSE, time=TDOSE) 
+
 	                      for (i in 1:nsim) {
+	                        set.seed(i) 
+	      			 TDOSE = runif(nsubs, -5/60, 5/60)
+	       			event <- expand.ev(amt=DOSE, time=TDOSE) 
+	       			set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -211,9 +225,13 @@ GetData <- function(model,
                               }             
            
         } else if (per == 'D') {
-        	DOSE = rnorm(nsubs, DOSE, 12)
-               event <- expand.ev(amt=DOSE, time=TDOSE)
+        	
                for (i in 1:nsim) {
+                 		 set.seed(i) 
+		                 DOSE = rnorm(nsubs, DOSE, 12)
+		                 event <- expand.ev(amt=DOSE, time=TDOSE)
+		                 
+		                 set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
@@ -229,14 +247,16 @@ GetData <- function(model,
                               }
                
         } else if (per == 'All') {
-          	TDOSE = rnorm(nsubs, 0, 5/60)
-         	DOSE = rnorm(nsubs, DOSE, 12)
-          	event <- expand.ev(amt=DOSE, time=TDOSE)
+          	
                for (i in 1:nsim) {
+                 		 
+                 		set.seed(i); TDOSE = rnorm(nsubs, 0, 5/60)
+         			set.seed(i); DOSE = rnorm(nsubs, DOSE, 12)
+          			event <- expand.ev(amt=DOSE, time=TDOSE)
                  		SAM <- c(0, SAMPLE)
-                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
+                 		set.seed(i); dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
-
+				set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
 				dose[[i]]$Cc <- 0 
