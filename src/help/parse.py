@@ -48,7 +48,7 @@ def create_control(comp, desgin, per, nsub, dir=None):
         control.close() 
         print(f'Model {design}-{per}-{nsub} has been created')
     
-
-create_control(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]) 
+if __name__ == '__main__':
+    create_control(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]) 
 
 
