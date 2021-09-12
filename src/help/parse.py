@@ -14,7 +14,7 @@ import string
 
 
 
-def create_control(comp, desgin, per, nsub, dir=None):
+def create_control(comp, design, per, nsub, dir=None):
     """
     Function to create NONMEM control streams based 
     on template file. 
@@ -32,13 +32,17 @@ def create_control(comp, desgin, per, nsub, dir=None):
     with open(f'{val}') as nmfi:
         nmfi = nmfi.readlines()
     
-        design=sys.argv[2]
-        per=sys.argv[3]
-        nsub=sys.argv[4]
+        # design=sys.argv[2]
+        # per=sys.argv[3]
+        # nsub=sys.argv[4]
         newfile=""
         for line in nmfi:
             sl = line.strip()
-            newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/{per}/dat{nsub}.csv')
+            if per == 'M':
+                newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/B/dat{nsub}.csv')
+            else:
+                newline=sl.replace('../../data/int/B/dat1.csv', f'../../data/{design}/{per}/dat{nsub}.csv')
+
             newfile += newline + '\n'
         
         # Create directory
@@ -49,7 +53,7 @@ def create_control(comp, desgin, per, nsub, dir=None):
         control.close() 
         print(f'Model {design}-{per}-{nsub} has been created')
     
-if __name__ == '__main__':
-    create_control(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]) 
+# if __name__ == '__main__':
+#     create_control(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]) 
 
 

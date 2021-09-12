@@ -2,7 +2,7 @@ $PROB template control stream
 ;-----------------------------------------------------------------------
 ; Project: 	Investigating the contribution of residual unexplained
 ; 	   	variability in nonlinear mixed-effect approach
-; Model: 	Two-compartment model with linear elimination
+; Model: 	One-compartment model with linear elimination
 ; Estim:	First-order conditional est. with interaction
 ; Author: 	Mutaz M. Jaber <jaber038@umn.edu>
 ; Date created: 9/7/2021
@@ -10,40 +10,35 @@ $PROB template control stream
 ;-----------------------------------------------------------------------
 $INPUT ID TIME DV AMT MDV EVID
 $DATA ../../data/int/All/dat28.csv ignore=@
-$SUBR ADVAN4 TRANS4
+$SUBR ADVAN2 TRANS2
 $EST MET=1 NOABORT MAX=10000 PRINT=5 INTER
 $PK
-ET1 = EXP(ETA(1)*THETA(6))
-ET2 = EXP(ETA(2)*THETA(7))
-ET3 = EXP(ETA(3)*THETA(8))
-ET4 = EXP(ETA(4)*THETA(9))
-ET5 = EXP(ETA(5)*THETA(10))
+
+ET1 = EXP(ETA(1)*THETA(4))
+ET2 = EXP(ETA(2)*THETA(5))
+ET3 = EXP(ETA(3)*THETA(6))
+
 
 CL = 5.0 * THETA(1) * ET1
-V2 = 35  * THETA(2) * ET2
-Q  = 50  * THETA(3) * ET3
-V3 = 50  * THETA(4) * ET4
-KA = 0.7 * THETA(5) * ET5
-SC = V2
+V = 85  * THETA(2) * ET2
+KA = 0.7 * THETA(3) * ET3
+
+SC = V
 $ERROR
-CVERR = 0.05
-W = THETA(11)*F*CVERR
-
-Y 	= F + W*ERR(1)
-
+CVERR 	= 0.05
+W  	= THETA(7)*F*CVERR
+Y  	= F + W * ERR(1)
 $THETA
-(0,1) ; CL
-(0,1) ; V2
-(0,1) ; Q
-(0,1) ; V3
-(0,1) ; KA
-(0,1) ; IIVCL
-(0,1) ; IIVV2
-(0,1) ; IIVQ
-(0,1) ; IIVV3
-(0,1) ; IIVKA
-(0,1) ; CVPropErr
-
-$OMEGA  0.09 FIX 0.09 FIX 0.09 FIX 0.09 FIX 0.09 FIX
-$SIGMA  1 FIX ;        [P]
+(0,1) ; tvCL
+(0,1) ; tvV
+(0,1) ; tvKA
+(0,1) ; tvCL
+(0,1) ; tvV
+(0,1) ; tvK
+(0,1) ; RUV
+$OMEGA
+0.9 FIX ;     IIV CL
+0.9 FIX  ;     IIV V
+0.9 FIX ;      IIV KA
+$SIGMA  1  FIX;        [P]
 $COVARIANCE UNCOND
