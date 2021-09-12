@@ -42,8 +42,9 @@ def create_control(comp, desgin, per, nsub, dir=None):
             newfile += newline + '\n'
         
         # Create directory
-        
-        control = open(f'm{nsub}.ctl', 'w')
+        dir = f'../est/{design}/{per}/'
+        os.makedirs(dir, exist_ok=True) 
+        control = open(f'{dir}/m{nsub}.ctl', 'w')
         control.write(newfile)
         control.close() 
         print(f'Model {design}-{per}-{nsub} has been created')

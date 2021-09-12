@@ -16,22 +16,29 @@ set /A NSIMS=100
 set TYPE=int spa
 set BASE=base.cpp
 set PER=B A1 A2 A3 S1 SL1 SL2 SL3 S2 TD1 TD2 D All 
+set CMT=2
 
+:: echo Lets start by creating datasets ...
 
-echo Lets start by creating datasets ...
+:: echo Moving to simulation directory
 
-echo Moving to simulation directory
-
-echo Creating datasets....
-cd src\sim\
-( for %%i in (%TYPE%) do (
-	(for %%j in (%PER%) do (
-    		call Rscript --vanilla -e "source('generate.R')" %NSUBS% %NSIMS% %TDOSE% %DOSE% %%i %BASE% %%j > tempR.out 2>&1
-))))
+:: echo Creating datasets....
+:: cd src\sim\
+:: ( for %%i in (%TYPE%) do (
+:: 	(for %%j in (%PER%) do (
+::     		call Rscript --vanilla -e "source('generate.R')" %NSUBS% %NSIMS% %TDOSE% %DOSE% %%i %BASE% %%j > tempR.out 2>&1
+:: ))))
 
 echo Data has been generated.
 echo Back to main directory...
-cd ..\..\
+:: cd ..\..\
 
 echo Creating control streams...
-
+cd src\tmp\ 
+(for %%c in (%CMT%) do (
+	(for %%i in (%TYPE%) do (
+		( for %%j in (%PER%) do (
+			( for /L %%s in (1, 1, NSUBS) do (
+		call python parse.py %%c %%i %%j %%s 
+))))))))
+  
