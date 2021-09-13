@@ -1,5 +1,3 @@
-#!/usr/bin/python 
-
 """
 Project: Investigating the contribution of residual unexplaind variability components in NLME approach
 Program: Main program to create, estimate, and produce results  
@@ -28,22 +26,22 @@ PER=['B','A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', '
 NSUBS='100'
 CMT=2 
 print('Creating datasets...')
-# os.chdir('src/sim')
+os.chdir('src/sim')
 
-# for type in TYPE:
-#     for P in PER:
-#        args = [
-#             'Rscript', 
-#             '--vanilla', 
-#             '-e', 
-#             'source("generate.R")', 
-#              NSUBS, NSIMS, TDOSE, DOSE, type, BASE, P 
-#             ]
-#        subprocess.call(args, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL) 
+for type in TYPE:
+    for P in PER:
+       args = [
+            'Rscript', 
+            '--vanilla', 
+            '-e', 
+            'source("generate.R")', 
+             NSUBS, NSIMS, TDOSE, DOSE, type, BASE, P 
+            ]
+       subprocess.call(args, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL) 
 
-# print('Data has been generated') 
-# print('Back to main dir')
-# os.chdir('../../')
+print('Data has been generated') 
+print('Back to main dir')
+os.chdir('../../')
 
 
 
