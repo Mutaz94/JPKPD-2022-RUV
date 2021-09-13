@@ -19,8 +19,7 @@ def run():
     infile=[]
     outfile=[]
     ARGS='-prdefault'
-    pass
-
+    for file in 
 
 
 def clean():
