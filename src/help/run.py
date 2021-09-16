@@ -13,9 +13,9 @@ import subprocess
 import glob 
 
 
-def run():
+def run(n):
     CALL_NM = 'nmfe75'
-    NSIMS = 100 
+    NSIMS = n 
     infile=[]
     outfile=[]
     for i in range(1, NSIMS+1):
@@ -28,7 +28,7 @@ def run():
 
 
 
-def clean():
-    RM_FILE=['FDATA.csv', 'FCON', 'LINK', 'gfortran.txt']
-    pass
+# def clean():
+#     RM_FILE=['FDATA.csv', 'FCON', 'LINK', 'gfortran.txt']
+#     pass
 
