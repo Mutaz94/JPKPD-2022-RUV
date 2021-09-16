@@ -3,7 +3,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Main program to create, estimate, and produce results  
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/11/21
+Date modified: 9/15/21
 """
 import os 
 import sys
