@@ -43,11 +43,6 @@ print('Data has been generated')
 print('Back to main dir')
 os.chdir('../../')
 
-
-
-
-
-
 NSUBS=100
 
 PER=['B','M', 'A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'All']
