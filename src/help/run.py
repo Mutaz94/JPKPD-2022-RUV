@@ -4,7 +4,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: invoke nonmem models 
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/12/21
+Date modified: 9/15/21
 """
 
 import sys
@@ -13,13 +13,19 @@ import subprocess
 import glob 
 
 
-
 def run():
     CALL_NM = 'nmfe75'
+    NSIMS = 100 
     infile=[]
     outfile=[]
+    for i in range(1, NSIMS+1):
+        infile.append(f'm{i}.ctl')
+        outfile.append(f'm{i}.res')
+
     ARGS='-prdefault'
-    for file in 
+    for i in range(NSIMS):
+        subprocess.call([CALL_NM, infile[i], outfile[i], ARGS])
+
 
 
 def clean():
