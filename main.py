@@ -11,7 +11,7 @@ import subprocess
 
 sys.path.append('src/help')
 import parse
-
+import run
 print('------------------------------------------------------')
 print('Investigating the contribution of residual unexplained')
 print('variability components in NLME approach') 
@@ -60,4 +60,13 @@ for type in TYPE:
                 parse.create_control(comp='1', design=type, per=P, nsub=s, dir=None)
             else:
                 parse.create_control(comp=CMT, design=type,per=P,  nsub=s, dir=None)
+
+
+
+print('Moving to the estimation step. This step going to take a lot of time. Relax!')
+
+for type in TYPE:
+    for P in PER:
+        run.run(type, P)
+
 
