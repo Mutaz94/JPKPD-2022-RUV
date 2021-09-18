@@ -4,7 +4,7 @@
 # Program: Generate simulated data using mrgsolve
 # Author: Mutaz M. Jaber <jaber038@umn.edu> 
 # Date created: 9/5/21
-# Date modified: 9/11/21
+# Date modified: 9/17/21
 #---------------------------------------------------------------------#
 library(mrgsolve) 
 
@@ -252,7 +252,7 @@ GetData <- function(model,
                  		 
                  		set.seed(i); TDOSE = rnorm(nsubs, 0, 5/60)
          			set.seed(i); DOSE = rnorm(nsubs, DOSE, 12)
-          			event <- expand.ev(amt=DOSE, time=TDOSE)
+          			event <- ev(amt=DOSE, time=TDOSE)
                  		SAM <- c(0, SAMPLE)
                  		set.seed(i); dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
@@ -286,11 +286,3 @@ GetData <- function(model,
 }
 
 GetData(model,nsim,TDOSE,DOSE,SAMPLE,nsubs,TYPE,PER) 
-
-
-
-
-
-
-
-
