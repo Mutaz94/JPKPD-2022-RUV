@@ -252,7 +252,7 @@ GetData <- function(model,
                  		 
                  		set.seed(i); TDOSE = rnorm(nsubs, 0, 5/60)
          			set.seed(i); DOSE = rnorm(nsubs, DOSE, 12)
-          			event <- ev(amt=DOSE, time=TDOSE)
+          			event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=FALSE)
                  		SAM <- c(0, SAMPLE)
                  		set.seed(i); dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 

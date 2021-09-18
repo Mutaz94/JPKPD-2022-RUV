@@ -57,14 +57,14 @@ for type in TYPE:
                 parse.create_control(comp=CMT, design=type,per=P,  nsub=s, dir=None)
 
 
-os.chdir('../../')
-print('Moving to the estimation step. This step going to take a lot of time. Relax!')
+# os.chdir('../../')
+# print('Moving to the estimation step. This step going to take a lot of time. Relax!')
 
-for type in TYPE:
-    for P in PER:
-        os.chdir(f'src/est/{type}/{P}')
-        run.run(n=NSIMS)
-        print('Back to Home')
-        os.chdir(f'../../../../')
+# for type in TYPE:
+#     for P in PER:
+#         os.chdir(f'src/est/{type}/{P}')
+#         run.run(n=NSIMS)
+#         print('Back to Home')
+#         os.chdir(f'../../../../')
 
 
