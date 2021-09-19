@@ -3,7 +3,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Main program to create, estimate, and produce results  
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/15/21
+Date modified: 9/18/21
 """
 import os 
 import sys
@@ -12,6 +12,7 @@ import subprocess
 sys.path.append('src/help')
 import parse
 import run
+import read 
 print('------------------------------------------------------')
 print('Investigating the contribution of residual unexplained')
 print('variability components in NLME approach') 
@@ -66,5 +67,9 @@ for type in TYPE:
         run.run(n=NSIMS)
         print('Back to Home')
         os.chdir(f'../../../../')
+
+
+print('Done with execution, moving to generate results')
+
 
 

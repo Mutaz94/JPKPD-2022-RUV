@@ -1,12 +1,19 @@
 
 """
 Project: Investigating the contribution of residual unexplaind variability components in NLME approach
-Program: invoke nonmem models 
+Program: Read ext file and generate result table 
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/18/21
 Date modified: 9/18/21
 """
+import pandas
+import os 
+import sys
+import glob
+import statistics
+import math 
 
+from scipy import stats
 
 
 def GetExt(design, model, comp):
