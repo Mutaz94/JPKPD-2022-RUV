@@ -49,6 +49,7 @@ def GetValues(value):
 
 
 def CSV(Data, design, model):
-   pass
+    Data.to_csv(f'{design}-{model}.csv', index=False)
+
    # Create results directory
    # Dump files in that directory 
