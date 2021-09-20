@@ -82,3 +82,4 @@ for type in TYPE:
 
         read.GetValues(EXT, type, P) 
 
+subprocess.call(['bash', 'clean.sh']) 
