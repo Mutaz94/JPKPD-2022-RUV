@@ -3,7 +3,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Main program to create, estimate, and produce results  
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/5/21
-Date modified: 9/18/21
+Date modified: 9/19/21
 """
 import os 
 import sys
@@ -71,5 +71,8 @@ for type in TYPE:
 
 print('Done with execution, moving to generate results')
 
-
+for type in TYPE:
+    for P in PER:
+        EXT = read.GetExt(type,P)
+        RES = read.GetValues(EXT) 
 

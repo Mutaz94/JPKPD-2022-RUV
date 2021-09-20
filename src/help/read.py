@@ -4,7 +4,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Read ext file and generate result table 
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/18/21
-Date modified: 9/18/21
+Date modified: 9/19/21
 """
 import pandas
 import os 
@@ -19,7 +19,7 @@ from scipy import stats
 def GetExt(design, model, comp):
     Final = []
     if comp == 2:
-        names = ['CL', 'V', 'Ka', 'Q', 'Vp', 'BCL', 'BV', 'BKa', 'BQ', 'BVp', 'RUV']
+        names = ['CL', 'V', 'Q', 'Vp', 'Ka', 'BCL', 'BV', 'BQ', 'BVp', 'BKa','RUV']
     else:
         names = ['CL', 'V', 'Ka','BCL', 'BV', 'BKa','RUV']
         
@@ -46,3 +46,9 @@ def GetValues(value):
         lo95.append(statistics.mean(value[nam] - stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
     Data = pandas.DataFrame({'Median': Med, 'Min': Min, 'Max': Max, '95CIlo': lo95, '95CIup': up95},value.columns)
     return Data
+
+
+def CSV(Data, design, model):
+   pass
+   # Create results directory
+   # Dump files in that directory 
