@@ -45,7 +45,7 @@ def GetValues(value, design, model):
         up95.append(statistics.mean(value[nam] + stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
         lo95.append(statistics.mean(value[nam] - stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
     Data = pandas.DataFrame({'Median': Med, 'Min': Min, 'Max': Max, '95CIlo': lo95, '95CIup': up95},value.columns)
-    Data.to_csv(f'results/{design}-{model}.csv', index=False)
+    Data.to_csv(f'results/{design}-{model}.csv')
     return Data
 
 
