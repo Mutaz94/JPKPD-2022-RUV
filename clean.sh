@@ -1,5 +1,5 @@
 #!/usr/bin/bash 
 
 
-find . -type f ! -name 'm*' -delete 
+find src/est/*/* -type f ! -name 'm*' -delete 
 
