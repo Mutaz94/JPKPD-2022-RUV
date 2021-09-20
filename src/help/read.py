@@ -23,7 +23,7 @@ def GetExt(design, model, comp):
     else:
         names = ['CL', 'V', 'Ka','BCL', 'BV', 'BKa','RUV']
         
-    for file in glob.glob(f'{design}/{model}/*.ext'):
+    for file in glob.glob(f'src/est/{design}/{model}/*.ext'):
         dat = pandas.read_table(file, skiprows=1, delim_whitespace=True)
         dat = dat[dat['ITERATION'] == -1E9]
         thetaNames = [col for col in dat.columns if 'THETA' in col]
@@ -33,7 +33,7 @@ def GetExt(design, model, comp):
     ESTi = pandas.concat(Final)
     return ESTi
 
-def GetValues(value):
+def GetValues(value, design, model):
     Med= []
     Max = []
     Min = []
@@ -45,11 +45,12 @@ def GetValues(value):
         up95.append(statistics.mean(value[nam] + stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
         lo95.append(statistics.mean(value[nam] - stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
     Data = pandas.DataFrame({'Median': Med, 'Min': Min, 'Max': Max, '95CIlo': lo95, '95CIup': up95},value.columns)
+    Data.to_csv(f'results/{design}-{model}.csv', index=False)
     return Data
 
 
-def CSV(Data, design, model):
-    Data.to_csv(f'{design}-{model}.csv', index=False)
+# def CSV(Data, design, model):
+#     Data.to_csv(f'{design}-{model}.csv', index=False)
 
-   # Create results directory
-   # Dump files in that directory 
+#    # Create results directory
+#    # Dump files in that directory 
