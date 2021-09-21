@@ -43,8 +43,8 @@ def GetValues(value, design, model):
         MU.append(statistics.mean(value[nam]))
         Max.append(max(value[nam]))
         Min.append(min(value[nam]))
-        up95.append(statistics.mean(value[nam] + stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
-        lo95.append(statistics.mean(value[nam] - stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam]))))
+        up95.append(statistics.mean(value[nam]) + stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam])))
+        lo95.append(statistics.mean(value[nam]) - stats.norm.ppf(0.975) * statistics.stdev(value[nam])/math.sqrt(len(value[nam])))
     Data = pandas.DataFrame({'Median': Med, 'Mean': MU, 'Min': Min, 'Max': Max, '95CIlo': lo95, '95CIup': up95},value.columns)
     Data.to_csv(f'results/{design}-{model}.csv')
     return Data
