@@ -112,7 +112,7 @@ GetData <- function(model,
                  		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
 			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
+				    dose[[i]]$Cc <- 0 
                                 # Dose data 
                                 conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
@@ -121,6 +121,10 @@ GetData <- function(model,
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
                                 base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- ifelse(base[[i]]$AMT >0 & base[[i]]$TIME !=0,
+                                                         0, base[[i]]$TIME
+                                                         )
+                                base[[i]] <- base[[i]][!(base[[i]]$DV ==0 & base[[i]]$EVID==0),]
 	       }
       } else if (per == 'SL2') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
@@ -141,6 +145,10 @@ GetData <- function(model,
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
                                 base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- ifelse(base[[i]]$AMT >0 & base[[i]]$TIME !=0,
+                                                         0, base[[i]]$TIME
+                                                         )
+                                base[[i]] <- base[[i]][!(base[[i]]$DV ==0 & base[[i]]$EVID==0),]
 	       }
       } else if (per == 'SL3') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
@@ -161,6 +169,10 @@ GetData <- function(model,
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
                                 base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- ifelse(base[[i]]$AMT >0 & base[[i]]$TIME !=0,
+                                                         0, base[[i]]$TIME
+                                                         )
+                                base[[i]] <- base[[i]][!(base[[i]]$DV ==0 & base[[i]]$EVID==0),]
 	       }
 	} else if (per == 'S2') {
 	       event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
