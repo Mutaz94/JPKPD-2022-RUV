@@ -35,8 +35,7 @@ def GetExt(design, model, comp):
 
 def GetValues(value, design, model):
     Med, MU = [], []
-    Max = []
-    Min = []
+    Max, Min = [], []
     up95, lo95 = [], []
     for nam in value.columns:
         Med.append(statistics.median(value[nam]))
@@ -50,8 +49,3 @@ def GetValues(value, design, model):
     return Data
 
 
-# def CSV(Data, design, model):
-#     Data.to_csv(f'{design}-{model}.csv', index=False)
-
-#    # Create results directory
-#    # Dump files in that directory 
