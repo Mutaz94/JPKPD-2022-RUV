@@ -24,7 +24,7 @@ def run(n):
 
     ARGS='-prdefault'
     for i in range(NSIMS):
-        subprocess.call([CALL_NM, infile[i], outfile[i], ARGS, '-background >& consout &'])
+        subprocess.call([CALL_NM, infile[i], outfile[i], ARGS, '-background')
 
 
 
