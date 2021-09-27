@@ -1,16 +1,8 @@
 
+run: main.py
+	python main.py
 
-
-simulation:
-
-
-
-create:
-
-
-
-
-estimation:
-
+clean: clean.sh
+	bash clean.sh 
 
 
