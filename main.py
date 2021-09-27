@@ -46,6 +46,7 @@ os.chdir('../../')
 
 NSUBS=100
 
+# Adding M compartment model misspecification 
 PER=['B','M', 'A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'All']
 print('Creating control streams....')
 os.chdir('src/tmp')
