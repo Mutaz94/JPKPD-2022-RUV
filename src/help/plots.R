@@ -14,6 +14,7 @@ theme_set(theme_base())
 
 files <- list.files('../../results/') 
 dat <- list()
+
 for (j in files) {
         dat[[j]] <- read.csv(paste0('../../results/',j))
 }
@@ -34,9 +35,14 @@ plot.2 <- ggplot(DAT[DAT$X=='RUV',], aes(per, rBias*100, group=design))+
         geom_point(aes(color=design))+
         geom_line()+
         labs(x='Perturbation', y =expression(rBias), title=expression(RUV))
+plot.3 <- ggplot(DAT[DAT$X=='RUV',], aes(per, rRMSE*100, group=design))+
+        geom_point(aes(color=design))+
+        geom_line()+
+        labs(x='Perturbation', y =expression(rRMSE), title=expression(RUV))
 pdf('RUV.pdf', height=10, width=12)
 print(plot.1)
 dev.off()
 pdf('rBias-RUV.pdf', height=10, width=12)
 print(plot.2)
+print(plot.3)
 dev.off()
