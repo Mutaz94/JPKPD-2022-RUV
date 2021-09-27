@@ -30,6 +30,13 @@ plot.1 <- ggplot(DAT[DAT$X=='RUV',], aes(per, log(Mean), group=design))+
         geom_line()+
         geom_errorbar(aes(ymin=log(X95CIlo), ymax=log(X95CIup)))+
         labs(x='Perturbation', y =expression(log(Deviation)), title=expression(RUV))
+plot.2 <- ggplot(DAT[DAT$X=='RUV',], aes(per, rBias*100, group=design))+
+        geom_point(aes(color=design))+
+        geom_line()+
+        labs(x='Perturbation', y =expression(rBias), title=expression(RUV))
 pdf('RUV.pdf', height=10, width=12)
 print(plot.1)
+dev.off()
+pdf('rBias-RUV.pdf', height=10, width=12)
+print(plot.2)
 dev.off()
