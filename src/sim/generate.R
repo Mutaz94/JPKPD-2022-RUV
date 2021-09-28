@@ -20,20 +20,20 @@ PER   <- args[7]
 MODEL <- mrgsolve::mread(BASE) 
 
 
+ if (PER == 'A1') {
+         sigmat <- diag(c(0.0025, 1e-04))
+ } else if (PER == 'A2') {
+         sigmat <- diag(c(0.0025, 4e-4))
+ } else if (PER == 'A3' | PER == 'All') {
+         sigmat <- diag(c(0.0025, 0.0016))
+ } else {
+         sigmat <- diag(c(0.0025, 0.0))
+ } 
 
-if (PER == 'A1') {
-        sigmat <- diag(c(0.0025, 1e-04))
-} else if (PER == 'A2') {
-        sigmat <- diag(c(0.0025, 4e-4))
-} else if (PER == 'A3' | PER == 'All') {
-        sigmat <- diag(c(0.0025, 0.0016))
-} else {
-        sigmat <- diag(c(0.0025, 0.0))
-} 
+
   
 model <- mrgsolve::smat(MODEL, sigmat)
 
-  
 GetData <- function(model, 
                     nsim=100,
                     TDOSE,
@@ -52,10 +52,11 @@ GetData <- function(model,
                 design <- match.arg(design) 
         } 
         
-	sims <- list()
-	dose <- list()
-	conc <- list()
-	base <- list()
+      
+        sims <- list()
+        dose <- list()
+        conc <- list()
+        base <- list()
 	
         BNAME <- c("ID", "TIME", "DV", "AMT", "MDV", "EVID") # Not sure if CMT should be added at this point
         if (TYPE == 'int') {

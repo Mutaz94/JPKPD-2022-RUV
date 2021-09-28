@@ -31,7 +31,7 @@ Ka = th5 * exp(eta(5));
 [ ode ]
 
 dxdt_depot = - Ka * depot;
-dxdt_cent  = Ka * depot - (Cl/Vc) * cent - (Q/Vc) * cent + (Q/Vp) * periph;
+dxdt_cent  =   Ka * depot - (Cl/Vc) * cent - (Q/Vc) * cent + (Q/Vp) * periph;
 dxdt_periph = (Q/Vc) * cent - (Q/Vp) * periph;
 
 [ error ]
