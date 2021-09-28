@@ -51,4 +51,14 @@ def GetValues(value, design, model):
     Data.to_csv(f'results/{design}-{model}.csv')
     return Data
 
-
+def GetShrinkage(design,per):
+    Shrinkage = []
+    for file in glob.glob(f'src/est/{design}/{per}/*.shk'):
+        data = pandas.read_table(file, skiprows=1, delim_whitespace=True)
+        Sh = data['ETA(1)'][4]
+        Shrinkage.append(Sh) 
+    mean_shrinkage = statistics.mean(Shrinkage)
+    median_shrinkage = statistics.median(Shrinkage) 
+    value = pandas.DataFrame({'Mean': mean_shrinkage, 'Median': median_shrinkage}, index = [per])
+    value.to_csv(f'results/{design}-{per}.shk')
+    return value 
