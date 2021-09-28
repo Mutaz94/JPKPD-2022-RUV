@@ -39,7 +39,7 @@ Cc = (cent/Vc) * (1 + eps(1)) + eps(2);
 
 int i = 0; 
 while (Cc < 0) {
-        if (++i > 100) {
+        if (++i > 200) {
                 mrg::report("Model gave up, There are negative values associated with Cc");
                 break;
         }

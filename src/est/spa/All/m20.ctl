@@ -6,12 +6,12 @@ $PROB template control stream
 ; Estim:	First-order conditional est. with interaction
 ; Author: 	Mutaz M. Jaber <jaber038@umn.edu>
 ; Date created: 9/7/2021
-; Date modified: 9/7/2021
+; Date modified: 9/28/2021
 ;-----------------------------------------------------------------------
 $INPUT ID TIME DV AMT MDV EVID
 $DATA ../../../../data/spa/All/dat20.csv ignore=@
 $SUBR ADVAN2 TRANS2
-$EST MET=1 NOABORT MAX=10000 PRINT=5 INTER
+$EST MET=1 NOABORT MAX=10000 PRINT=5 INTER NSIG=2
 $PK
 
 ET1 = EXP(ETA(1)*THETA(4))
@@ -36,9 +36,6 @@ $THETA
 (0,1) ; tvV
 (0,1) ; tvK
 (0,1) ; RUV
-$OMEGA
-0.9 FIX ;     IIV CL
-0.9 FIX  ;     IIV V
-0.9 FIX ;      IIV KA
+$OMEGA (0.09 FIX)x3
 $SIGMA  1  FIX;        [P]
 $COVARIANCE UNCOND

@@ -1,9 +1,9 @@
+all: simulation create
 
-run: main.py
-	python main.py
-graphs: src/help/plots.R
-	R CMD BATCH --vanilla plots.R
-clean: clean.sh
-	bash clean.sh 
+simulation: main/sim.py
+	python main/sim.py
+
+create: main/create.py
+	python main/create.py
 
 

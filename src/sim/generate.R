@@ -66,8 +66,7 @@ GetData <- function(model,
         } else if (TYPE == 'spa1') {
                 SAMPLE <- c(2, 6, 12, 24, 48)
         } else if (TYPE == 'spa2') {
-                SAMPLE <- s(1, 2, 6, 12, 24, 48)
-        }
+                SAMPLE <- c(1, 2, 6, 12, 24, 48)
         } else {
                 stop('Study design must be declared (int or spa)')
         }
@@ -248,7 +247,7 @@ GetData <- function(model,
                for (i in 1:nsim) {
                  		 set.seed(i) 
 		                 DOSE = rnorm(nsubs, DOSE, 12)
-		                 event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=FALSE)
+		                 event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=F)
 		                 
 		                 set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
