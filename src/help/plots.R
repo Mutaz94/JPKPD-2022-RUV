@@ -12,7 +12,7 @@ theme_set(theme_base())
 
 
 
-files <- list.files('../../results/') 
+files <- list.files('../../results/', pattern='csv') 
 dat <- list()
 
 for (j in files) {

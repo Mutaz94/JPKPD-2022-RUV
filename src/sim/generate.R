@@ -62,9 +62,15 @@ GetData <- function(model,
                 SAMPLE <- c(0.5, 1, 2, 4, 6, 8, 12, 24, 48) 
         } else if (TYPE == 'spa') {
                 SAMPLE <- c(2, 12, 24, 48) 
+        } else if (TYPE == 'spa1') {
+                SAMPLE <- c(2, 6, 12, 24, 48)
+        } else if (TYPE == 'spa2') {
+                SAMPLE <- s(1, 2, 6, 12, 24, 48)
+        }
         } else {
                 stop('Study design must be declared (int or spa)')
         }
+
         if (per =='B' | per == 'A1' | per == 'A2' | per == 'A3') {
         	event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
@@ -91,8 +97,8 @@ GetData <- function(model,
                  		idata <- dplyr::select(event, ID) 
                  		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
+			                    dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+				                dose[[i]]$Cc <- 0 
                                 # Dose data 
                                 conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
@@ -219,21 +225,21 @@ GetData <- function(model,
 
 	                      for (i in 1:nsim) {
 	                        set.seed(i) 
-	      			 TDOSE = runif(nsubs, -5/60, 5/60)
-	       			event <- expand.ev(amt=DOSE, time=TDOSE) 
-	       			set.seed(i) 
-                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
+	                        TDOSE = rnorm(nsubs, 0, 10/60)
+	       			        event <- expand.ev(amt=DOSE, time=TDOSE) 
+	       			        set.seed(i) 
+                            sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
+			                dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+				            dose[[i]]$Cc <- 0 
                                 # Dose data 
-                                conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
+                            conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
                                 # Arrange data
 
-                                base[[i]] <- rbind(dose[[i]], conc[[i]])
-                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                            base[[i]] <- rbind(dose[[i]], conc[[i]])
+                            base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 
-                                colnames(base[[i]]) <- BNAME
-                                base[[i]][base[[i]]$AMT != 0, ]$TIME <- 0 
+                            colnames(base[[i]]) <- BNAME
+                            base[[i]][base[[i]]$AMT != 0, ]$TIME <- 0 
                               }             
            
         } else if (per == 'D') {
@@ -241,13 +247,13 @@ GetData <- function(model,
                for (i in 1:nsim) {
                  		 set.seed(i) 
 		                 DOSE = rnorm(nsubs, DOSE, 12)
-		                 event <- expand.ev(amt=DOSE, time=TDOSE)
+		                 event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=FALSE)
 		                 
 		                 set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
-				dose[[i]]$amt <- 120
+                                dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+                                dose[[i]]$Cc <- 0 
+                                dose[[i]]$amt <- 120
                                 # Dose data 
                                 conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
                                 # Arrange data
@@ -263,24 +269,24 @@ GetData <- function(model,
                for (i in 1:nsim) {
                  		 
                  		set.seed(i); TDOSE = rnorm(nsubs, 0, 5/60)
-         			set.seed(i); DOSE = rnorm(nsubs, DOSE, 12)
-          			event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=FALSE)
+         			    set.seed(i); DOSE = rnorm(nsubs, DOSE, 12)
+          			    event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=FALSE)
                  		SAM <- c(0, SAMPLE)
                  		set.seed(i); dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
-				set.seed(i) 
-                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
-				dose[[i]]$amt <- 120
+				        set.seed(i) 
+                        sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
+			            dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+                        dose[[i]]$Cc <- 0 
+                        dose[[i]]$amt <- 120
                                 # Dose data 
-                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
+                        conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
 
-                                base[[i]] <- rbind(dose[[i]], conc[[i]])
-                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
-                                colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                        base[[i]] <- rbind(dose[[i]], conc[[i]])
+                        base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                        colnames(base[[i]]) <- BNAME
+                        base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
 	       }          
         }
                
