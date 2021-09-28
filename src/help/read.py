@@ -4,7 +4,7 @@ Project: Investigating the contribution of residual unexplaind variability compo
 Program: Read ext file and generate result table 
 Author: Mutaz M. Jaber <jaber038@umn.edu>
 Date created: 9/18/21
-Date modified: 9/19/21
+Date modified: 9/26/21
 """
 import pandas
 import os 
