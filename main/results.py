@@ -19,6 +19,9 @@ print('Investigating the contribution of residual unexplained')
 print('variability components in NLME approach') 
 print('------------------------------------------------------') 
 
+if not os.path.exists('results'):
+        os.mkdir('results')
+
 TYPE=['int', 'spa', 'spa1', 'spa2']
 PER=['B','M', 'A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'All']
 for type in TYPE:
