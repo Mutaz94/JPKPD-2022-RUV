@@ -23,12 +23,11 @@ def run(n):
         outfile.append(f'm{i}.res')
 
     ARGS='-prdefault'
-    for i in range(NSIMS):
-        subprocess.call([CALL_NM, infile[i], outfile[i], ARGS, '-background'])
+    with open('m_run.out', 'w') as tmpfile:
+        for i in range(NSIMS):
+            subprocess.call([CALL_NM, infile[i], outfile[i], ARGS, '-background'], 
+                    stdout=tmpfile, stderr=subprocess.STDOUT)
 
 
 
-# def clean():
-#     RM_FILE=['FDATA.csv', 'FCON', 'LINK', 'gfortran.txt']
-#     pass
 
