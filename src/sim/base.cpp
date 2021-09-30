@@ -5,7 +5,7 @@ Model: Base model
 - Individual parameters are log-normally distributed
 - 5% proportional error model
 
-[ set ] delta=0.1, end=48
+[ set ] delta=0.1, end=50
 
 [ cmt ] depot cent periph
 [ theta ] @name th 

@@ -4,7 +4,7 @@
 # Program: Generate simulated data using mrgsolve
 # Author: Mutaz M. Jaber <jaber038@umn.edu> 
 # Date created: 9/5/21
-# Date modified: 9/17/21
+# Date modified: 9/30/21
 #---------------------------------------------------------------------#
 library(mrgsolve) 
 
@@ -63,9 +63,9 @@ GetData <- function(model,
                 SAMPLE <- c(0.5, 1, 2, 4, 6, 8, 12, 24, 48) 
         } else if (TYPE == 'spa') {
                 SAMPLE <- c(2, 12, 24, 48) 
-        } else if (TYPE == 'spa1') {
+        } else if (TYPE == 'SD1') {
                 SAMPLE <- c(2, 6, 12, 24, 48)
-        } else if (TYPE == 'spa2') {
+        } else if (TYPE == 'SD2') {
                 SAMPLE <- c(1, 2, 6, 12, 24, 48)
         } else {
                 stop('Study design must be declared (int or spa)')
@@ -76,8 +76,8 @@ GetData <- function(model,
                for (i in 1:nsim) {
                  		set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
+                                dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+                                dose[[i]]$Cc <- 0 
                                 # Dose data 
                                 conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
                                 # Arrange data
@@ -88,17 +88,17 @@ GetData <- function(model,
                                 colnames(base[[i]]) <- BNAME
                               }
 
-      } else if (per == 'S1') {
+        } else if (per == 'S1') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
-                 		set.seed(i)                  
-                 		SAM <- c(0, SAMPLE)
-                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
-                 		idata <- dplyr::select(event, ID) 
-                 		set.seed(i) 
+                                set.seed(i)                  
+                                SAM <- c(0, SAMPLE)
+                                dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
+                                idata <- dplyr::select(event, ID) 
+                                set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
-			                    dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				                dose[[i]]$Cc <- 0 
+			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+			        dose[[i]]$Cc <- 0 
                                 # Dose data 
                                 conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
@@ -106,19 +106,19 @@ GetData <- function(model,
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
 	       }
       } else if (per == 'SL1') {
                event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
                for (i in 1:nsim) {
-                 		set.seed(i) 
-                 		SAM <- c(0, SAMPLE)
-                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 10/60), length(SAMPLE)))
-                 		idata <- dplyr::select(event, ID) 
-                 		set.seed(i) 
+                                set.seed(i) 
+                                SAM <- c(0, SAMPLE)
+                                dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 10/60), length(SAMPLE)))
+                                idata <- dplyr::select(event, ID) 
+                                set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				    dose[[i]]$Cc <- 0 
+                                dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+                                dose[[i]]$Cc <- 0 
                                 # Dose data 
                                 conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
                                 # Arrange data
@@ -126,7 +126,7 @@ GetData <- function(model,
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
                                 base[[i]]$TIME <- ifelse(base[[i]]$AMT >0 & base[[i]]$TIME !=0,
                                                          0, base[[i]]$TIME
                                                          )
@@ -150,7 +150,7 @@ GetData <- function(model,
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
                                 base[[i]]$TIME <- ifelse(base[[i]]$AMT >0 & base[[i]]$TIME !=0,
                                                          0, base[[i]]$TIME
                                                          )
@@ -174,7 +174,7 @@ GetData <- function(model,
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
                                 base[[i]]$TIME <- ifelse(base[[i]]$AMT >0 & base[[i]]$TIME !=0,
                                                          0, base[[i]]$TIME
                                                          )
@@ -198,7 +198,7 @@ GetData <- function(model,
                                 base[[i]] <- rbind(dose[[i]], conc[[i]])
                                 base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                                 colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                                base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
 	       }
 	} else if (per == 'TD1') {
 	      
@@ -286,7 +286,7 @@ GetData <- function(model,
                         base[[i]] <- rbind(dose[[i]], conc[[i]])
                         base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
                         colnames(base[[i]]) <- BNAME
-                        base[[i]]$TIME <- rep(SAM, length=length(unique(base[[i]]$ID)))
+                        base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
 	       }          
         }
                
