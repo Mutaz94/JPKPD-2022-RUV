@@ -23,7 +23,10 @@ print('Creating control streams....')
 os.chdir('src/tmp')
 for type in TYPE:
     for P in PER:
-        N = len(glob.glob(f'../../data/{type}/{P}/*.csv'))
+        if P == 'M':
+                N = len(glob.glob(f'../../data/{type}/B/*.csv'))
+        else:
+                N = len(glob.glob(f'../../data/{type}/{P}/*.csv'))
         for s in range(1, N+1, 1):
             if P == 'M' or P == 'All':
                 parse.create_control(comp='1', design=type, per=P, n=s, dir=None)
