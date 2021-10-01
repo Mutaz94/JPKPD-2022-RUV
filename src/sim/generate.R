@@ -59,13 +59,13 @@ GetData <- function(model,
         base <- list()
 	
         BNAME <- c("ID", "TIME", "DV", "AMT", "MDV", "EVID") # Not sure if CMT should be added at this point
-        if (TYPE == 'int') {
+        if (TYPE == 'SD1') {
                 SAMPLE <- c(0.5, 1, 2, 4, 6, 8, 12, 24, 48) 
-        } else if (TYPE == 'spa') {
+        } else if (TYPE == 'SD4') {
                 SAMPLE <- c(2, 12, 24, 48) 
-        } else if (TYPE == 'SD1') {
-                SAMPLE <- c(2, 6, 12, 24, 48)
         } else if (TYPE == 'SD2') {
+                SAMPLE <- c(2, 6, 12, 24, 48)
+        } else if (TYPE == 'SD3') {
                 SAMPLE <- c(1, 2, 6, 12, 24, 48)
         } else {
                 stop('Study design must be declared (int or spa)')

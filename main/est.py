@@ -9,7 +9,7 @@ Date modified: 9/26/21
 import os 
 import sys
 import subprocess
-
+import glob
 sys.path.append('src/help')
 import parse
 import run
@@ -20,13 +20,14 @@ print('variability components in NLME approach')
 print('------------------------------------------------------') 
 
 # os.chdir('../../')
-TYPE=['int', 'spa', 'spa1', 'spa2']
+TYPE=['SD1', 'SD2', 'SD3', 'SD4']
 PER=['B','M', 'A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'All']
 print('Moving to the estimation step. This step going to take a lot of time. Relax!')
-NSIMS=100
+
 for type in TYPE:
     for P in PER:
         os.chdir(f'src/est/{type}/{P}')
+        NSIMS=len(glob.glob('*.ctl'))
         run.run(n=NSIMS)
         print('Back to Home')
         os.chdir(f'../../../../')

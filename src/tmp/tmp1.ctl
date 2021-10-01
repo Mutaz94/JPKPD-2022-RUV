@@ -9,7 +9,7 @@ $PROB template control stream
 ; Date modified: 9/7/2021
 ;-----------------------------------------------------------------------
 $INPUT ID TIME DV AMT MDV EVID 
-$DATA ../../data/int/B/dat1.csv ignore=@ 
+$DATA ../../data/SD1/B/dat1.csv ignore=@ 
 $SUBR ADVAN4 TRANS4
 $EST MET=1 NOABORT MAX=10000 PRINT=5 INTER NSIG=2 
 $PK
@@ -46,4 +46,3 @@ $THETA
 
 $OMEGA  (0.09 FIX)x5   
 $SIGMA  1 FIX ;        [P]
-$COVARIANCE UNCOND
