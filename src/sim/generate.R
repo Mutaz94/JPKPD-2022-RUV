@@ -246,7 +246,7 @@ GetData <- function(model,
         	
                for (i in 1:nsim) {
                  		 set.seed(i) 
-		                 DOSE = rnorm(nsubs, DOSE, 12)
+		                 DOSE = round(rnorm(nsubs, DOSE, 12),0) 
 		                 event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=F)
 		                 
 		                 set.seed(i) 
