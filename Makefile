@@ -12,5 +12,5 @@ estimation: main/est.py
 results: main/results.py
 	python main/results.py
 
-clean: clean.sh
+clean: main/clean.sh
 	bash main/clean.sh 
