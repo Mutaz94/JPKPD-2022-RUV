@@ -1,3 +1,5 @@
+RENG=(R CMD BATCH --vanilla) 
+Rfiles=
 all: simulation create estimation results clean 
 
 simulation: main/sim.py
@@ -11,6 +13,8 @@ estimation: main/est.py
 
 results: main/results.py
 	python main/results.py
+
+graphs:
 
 clean: main/clean.sh
 	bash main/clean.sh 
