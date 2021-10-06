@@ -13,6 +13,8 @@ This is updated repository from the old one `Mutaz94/RUV`.
 R packages:
 
 - mrgsolve
+- ggplot2 
+- ggthemes
 
 Python libraries:
 
@@ -35,5 +37,5 @@ open command prompt
 
 ```
 cd residual
-python main.py
+make all 
 ```
