@@ -1,5 +1,7 @@
-RENG=(R CMD BATCH --vanilla) 
-Rfiles=
+Rfiles= plots.R
+MAIN = sim.py create.py est.py results.py
+PY = python 
+
 all: simulation create estimation results clean 
 
 simulation: main/sim.py
@@ -18,3 +20,6 @@ graphs:
 
 clean: main/clean.sh
 	bash main/clean.sh 
+
+RUNALL: main/$(MAIN)
+	$(PY)  main/$(MAIN) 
