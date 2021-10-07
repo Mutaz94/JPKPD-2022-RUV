@@ -1,22 +1,25 @@
 Rfiles= plots.R
 MAIN = sim.py create.py est.py results.py
 PY = python 
-
+RENV=R
+RFLAGS=CMD BATCH --vanilla
+R_FILES=plots.R 
 all: simulation create estimation results clean 
 
 simulation: main/sim.py
-	python main/sim.py
+	$(PY) main/sim.py
 
 create: main/create.py
-	python main/create.py
+	$(PY) main/create.py
 
 estimation: main/est.py
-	python main/est.py
+	$(PY) main/est.py
 
 results: main/results.py
-	python main/results.py
+	$(PY) main/results.py
 
-graphs:
+graphs: $(R_FILES)
+	$(RENV) $(RFLAGS) $(R_FILES) 
 
 clean: main/clean.sh
 	bash main/clean.sh 
