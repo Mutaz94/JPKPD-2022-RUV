@@ -32,4 +32,4 @@ for type in TYPE:
             EXT = read.GetExt(type,P, 2)
 
         read.GetValues(EXT, type, P) 
-        read.GetShrinkage(type, P) 
+        # read.GetShrinkage(type, P) 

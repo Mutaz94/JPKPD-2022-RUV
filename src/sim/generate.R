@@ -64,9 +64,9 @@ GetData <- function(model,
         } else if (TYPE == 'SD4') {
                 SAMPLE <- c(2, 12, 24, 48) 
         } else if (TYPE == 'SD2') {
-                SAMPLE <- c(2, 6, 12, 24, 48)
+                SAMPLE <- c(1, 2, 6, 8, 12, 24, 48)
         } else if (TYPE == 'SD3') {
-                SAMPLE <- c(1, 2, 6, 12, 24, 48)
+                SAMPLE <- c(2, 6, 12, 24, 48)
         } else {
                 stop('Study design must be declared (int or spa)')
         }
@@ -246,8 +246,8 @@ GetData <- function(model,
         	
                for (i in 1:nsim) {
                  		 set.seed(i) 
-		                 DOSE = rnorm(nsubs, DOSE, 12)
-		                 event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=F)
+		                 DOSEi = rnorm(nsubs, DOSE, 12)
+		                 event <- ev(amt=DOSEi, time=TDOSE, ID=1:nsubs, replicate=F)
 		                 
 		                 set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
@@ -268,9 +268,9 @@ GetData <- function(model,
           	
                for (i in 1:nsim) {
                  		 
-                 		set.seed(i); TDOSE = rnorm(nsubs, 0, 5/60)
-         			    set.seed(i); DOSE = rnorm(nsubs, DOSE, 12)
-          			    event <- ev(amt=DOSE, time=TDOSE, ID=1:nsubs, replicate=FALSE)
+                 		set.seed(i); TDOSEi = rnorm(nsubs, 0, 5/60)
+         			    set.seed(i); DOSEi = rnorm(nsubs, DOSE, 12)
+          			    event <- ev(amt=DOSEi, time=TDOSEi, ID=1:nsubs, replicate=FALSE)
                  		SAM <- c(0, SAMPLE)
                  		set.seed(i); dl <- purrr::map(event$ID, ~ sample(SAMPLE + rnorm(length(SAMPLE), 0, 5/60), length(SAMPLE)))
                  		idata <- dplyr::select(event, ID) 
