@@ -25,9 +25,10 @@ $PK
 	V3 = 50  * THETA(4) * ET4
 	KA = 0.7 * THETA(5) * ET5	
 	SC = V2 
+
 $ERROR
 	CVERR = 0.05
-	W = THETA(11)*F*CVERR
+	W = THETA(11)*F*CVERR 
 	
 	Y 	= F + W*ERR(1)
 
@@ -43,6 +44,5 @@ $THETA
 	 (0,1) ; IIVV3
 	 (0,1) ; IIVKA
 	 (0,1) ; CVPropErr
-
 $OMEGA  (0.09 FIX)x5   
 $SIGMA  1 FIX ;        [P]
