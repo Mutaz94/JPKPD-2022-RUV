@@ -22,7 +22,7 @@ def run(n):
         infile.append(f'm{i}.ctl')
         outfile.append(f'm{i}.res')
 
-    ARGS='-prdefault'
+    ARGS='-prdefault -parafile=../../../../rmpi.pnm'
     with open('m_run.out', 'w') as tmpfile:
         for i in range(NSIMS):
             subprocess.call([CALL_NM, infile[i], outfile[i], ARGS, '-background'], 

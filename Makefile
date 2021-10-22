@@ -4,7 +4,7 @@ PY = python
 RENV=R
 RFLAGS=CMD BATCH --vanilla
 R_FILES=plots.R 
-all: RUNALL graphs clean 
+all: simulation create estimation results  
 
 simulation: main/sim.py
 	$(PY) main/sim.py
