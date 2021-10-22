@@ -264,6 +264,27 @@ GetData <- function(model,
                                 colnames(base[[i]]) <- BNAME
                               }
                
+        } else if (per == 'D2') {
+        	
+               for (i in 1:nsim) {
+                 		 set.seed(i) 
+		                 DOSEi = rnorm(nsubs, DOSE, 24)
+		                 event <- ev(amt=DOSEi, time=TDOSE, ID=1:nsubs, replicate=F)
+		                 
+		                 set.seed(i) 
+                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
+                                dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
+                                dose[[i]]$Cc <- 0 
+                                dose[[i]]$amt <- 120
+                                # Dose data 
+                                conc[[i]] <- sims[[i]][sims[[i]]$time %in% SAMPLE,]
+                                # Arrange data
+
+                                base[[i]] <- rbind(dose[[i]], conc[[i]])
+                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
+                                
+                                colnames(base[[i]]) <- BNAME
+                              }
         } else if (per == 'All') {
           	
                for (i in 1:nsim) {

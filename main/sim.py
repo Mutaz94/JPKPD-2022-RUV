@@ -14,10 +14,10 @@ print('------------------------------------------------------')
 
 DOSE='120'
 TDOSE='0'
-NSIMS='500'
+NSIMS='100'
 BASE='base.cpp'
 TYPE=['SD1', 'SD2', 'SD3', 'SD4']
-PER=['B','A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'All']
+PER=['B','A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'D2','All']
 NSUBS='100'
 CMT=2 
 print('Creating datasets...')

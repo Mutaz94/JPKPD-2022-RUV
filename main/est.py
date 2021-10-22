@@ -21,7 +21,7 @@ print('------------------------------------------------------')
 
 # os.chdir('../../')
 TYPE=['SD1', 'SD2', 'SD3', 'SD4']
-PER=['B','M', 'A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'All']
+PER=['B','M', 'A1', 'A2', 'A3', 'S1', 'SL1', 'SL2', 'SL3', 'S2', 'TD1', 'TD2', 'D', 'D2', 'All']
 print('Moving to the estimation step. This step going to take a lot of time. Relax!')
 
 for type in TYPE:
