@@ -41,7 +41,7 @@ GetData <- function(model,
                     SAMPLE,
                     nsubs,
                     TYPE,
-                    per=c('B','A1', 'A2', 'A3', 'S1','SL1', 'SL2', 'SL3', 'S2', 'D','TD1','TD2','All')
+                    per=c('B','A1', 'A2', 'A3', 'S1','SL1', 'SL2', 'SL3','D', 'D2', 'TD1','TD2','All')
                     ) {
 
         if (inherits(per, "character")) {
@@ -180,26 +180,7 @@ GetData <- function(model,
                                                          )
                                 base[[i]] <- base[[i]][!(base[[i]]$DV ==0 & base[[i]]$EVID==0),]
 	       }
-	} else if (per == 'S2') {
-	       event <- expand.ev(amt=DOSE, time=TDOSE, ID=1:nsubs)
-               for (i in 1:nsim) {
-                                set.seed(i) 
-                 		SAM <- c(0, SAMPLE)
-                 		dl <- purrr::map(event$ID, ~ sample(SAMPLE + runif(length(SAMPLE), -5/60, 5/60), length(SAMPLE)))
-                 		idata <- dplyr::select(event, ID)
-                 		set.seed(i) 
-                                sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt", idata=idata, deslist=dl, descol="ID"))
-			        dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]
-				dose[[i]]$Cc <- 0 
-                                # Dose data 
-                                conc[[i]] <- sims[[i]][sims[[i]]$amt==0,]
-                                # Arrange data
 
-                                base[[i]] <- rbind(dose[[i]], conc[[i]])
-                                base[[i]] <- subset(base[[i]][order(base[[i]]$ID, base[[i]]$time),],select=c(ID,time,Cc,amt,cmt,evid))
-                                colnames(base[[i]]) <- BNAME
-                                base[[i]]$TIME <- rep(SAM, length(unique(base[[i]]$ID)))
-	       }
 	} else if (per == 'TD1') {
 	      
 	                      for (i in 1:nsim) {
