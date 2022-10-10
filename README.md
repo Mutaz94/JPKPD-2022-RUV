@@ -1,5 +1,4 @@
-# Investigating the components of residual unexplained variability components in nonlinear mixed-effect approach
-
+# Investigating the Contribution of Residual Unexplained Variability Components in a Nonlinear-Mixed Effect Approach
 ---
 
 This is updated repository from the old one `Mutaz94/RUV`.
