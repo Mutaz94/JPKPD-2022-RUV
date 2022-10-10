@@ -185,8 +185,8 @@ GetData <- function(model,
 	      
 	                      for (i in 1:nsim) {
 	                        set.seed(i) 
-	                        TDOSE = rnorm(nsubs, 0, 5/60)
-	       			event <- expand.ev(amt=DOSE, time=TDOSE) 
+	                        TDOSEi = rnorm(nsubs, 0, 5/60)
+	       			event <- expand.ev(amt=DOSE, time=TDOSEi) 
 	       			
 	       			set.seed(i) 
                                 sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
@@ -206,8 +206,8 @@ GetData <- function(model,
 
 	                      for (i in 1:nsim) {
 	                        set.seed(i) 
-	                        TDOSE = rnorm(nsubs, 0, 10/60)
-	       			        event <- expand.ev(amt=DOSE, time=TDOSE) 
+	                        TDOSEi = rnorm(nsubs, 0, 10/60)
+	       			        event <- expand.ev(amt=DOSE, time=TDOSEi) 
 	       			        set.seed(i) 
                             sims[[i]] <- as.data.frame(mrgsim(model, event, outvars="Cc", carry_out="amt,evid,cmt"))
 			                dose[[i]] <- sims[[i]][sims[[i]]$amt != 0,]

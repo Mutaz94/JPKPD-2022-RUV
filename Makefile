@@ -1,4 +1,4 @@
-Rfiles= plots.R
+make resultsRfiles= plots.R
 MAIN = sim.py create.py est.py results.py
 PY = python 
 RENV=R
@@ -23,6 +23,8 @@ graphs: $(R_FILES)
 
 clean: main/clean.sh
 	bash main/clean.sh 
+cleanFolder: main/cleanFo.sh
+	bash main/cleanFo.sh
 
 RUNALL: main/$(MAIN)
 	$(PY)  main/$(MAIN) 
